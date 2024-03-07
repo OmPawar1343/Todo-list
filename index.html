@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #task-input {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        #task-input input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #task-input button {
+            padding: 8px 15px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        li button {
+            margin-left: auto;
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+
+        <div id="task-input">
+            <input type="text" id="new-task" placeholder="Enter task">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+
+        <ul id="task-list">
+            <!-- Tasks will be dynamically populated here -->
+        </ul>
+    </div>
+    <script>
+        // JavaScript code
+        function addTask() {
+    var input = document.getElementById("new-task");
+    var taskText = input.value.trim();
+
+    if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+    }
+
+    var taskList = document.getElementById("task-list");
+    var newTaskItem = document.createElement("li");
+    newTaskItem.innerHTML = taskText + '<button onclick="toggleTaskCompletion(this)">Complete</button>' +
+                            '<button onclick="deleteTask(this)">Delete</button>';
+    taskList.appendChild(newTaskItem);
+
+    input.value = "";
+}
+
+function toggleTaskCompletion(buttonElement) {
+    var listItem = buttonElement.parentElement;
+    listItem.classList.toggle("completed");
+
+    var buttonText = buttonElement.innerText;
+    buttonElement.innerText = buttonText === "Complete" ? "Undo" : "Complete";
+}
+
+function deleteTask(buttonElement) {
+    var listItem = buttonElement.parentElement;
+    listItem.remove();
+}
+       
+    </script>
+</body>
+</html>
